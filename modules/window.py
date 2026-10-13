@@ -1,8 +1,7 @@
-from PyQt6.QtWidgets import QMainWindow, QFrame
-from modules.app import app 
-from PyQt6.QtWidgets import QVBoxLayout
+from PyQt6.QtWidgets import QMainWindow,QFrame , QScrollArea, QVBoxLayout,QHBoxLayout, QLabel
 from PyQt6.QtCore import Qt
-from PyQt6.QtWidgets import QScrollArea
+from modules.app import app 
+
 
 main_window = QMainWindow()
 
@@ -26,109 +25,70 @@ main_window.setGeometry(
     HEIGHT_WINDOW
 )
 
-main_frame = QFrame(parent = main_window)
-main_frame.setFixedSize(1024, 800)
-main_frame.setStyleSheet("background-color:pink; border-radius: 15px")
+frame_0 = QFrame(parent= main_window)
+frame_0.setStyleSheet("background-color: pink")
+frame_0.setFixedSize(1024,800)
+horizonal_layout = QHBoxLayout()
+frame_0.setLayout(horizonal_layout)
 
-scroll_area = QScrollArea(parent= main_frame)
-scroll_area.setFixedSize(400,800)
+main_scroll = QScrollArea(parent = frame_0)
+main_scroll.setFixedWidth(400)
+main_scroll.setFixedHeight(800)
+main_scroll.setStyleSheet("background-color:purple")
 
-scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+main_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
 
-# запрещает scroll_area автоматически изменять размеры виджета
-scroll_area.setWidgetResizable(False)
-scroll_area.setStyleSheet("background-color:red")
+main_scroll.setWidgetResizable(False)
 
-scroll_content = QFrame(parent = scroll_area)
-scroll_content.setFixedWidth(390)
-scroll_content.setStyleSheet("background-color:green")
-
-scroll_content_layout = QVBoxLayout()
-scroll_content_layout.setSpacing(20)
-scroll_content_layout.setContentsMargins(0, 0, 0, 0)
-scroll_content_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
-
-
-scroll_content.setLayout(scroll_content_layout)
-
-for frame in range(50):
-    frame_4 = QFrame( parent = scroll_area)
-    frame_4.setStyleSheet("background-color:yellow")
-    frame_4.setFixedSize(200,200)
-    scroll_content_layout.addWidget(frame_4)
-
-scroll_area.setWidget(scroll_content)
+frame_scroll = QFrame(parent=main_scroll) 
+frame_scroll.setFixedWidth(390) 
+frame_scroll.setStyleSheet("background-color:red;")
 
 
 
-# 1. Создаем пространство в котором будет скролл
-# 2. задать размеры этому пространству и выключить ненужный скролл (либо вправо. либо лево)
-# 3. запрещает scroll_area автоматически изменять размеры виджета
-# 4. создаем фрейм в котором будет размещен контент скролла
-# 5. задаем схему размещения виджетов внутри скрола
-# 6. устанавливаем схему размещения для фрейма
-# 7.  добавляем фреймы внутрь скрола
-# 8. устанавливаем виджет с контентом скролла в пространство сролла
+layout = QVBoxLayout()
+frame_scroll.setLayout(layout)
+
+
+list_1 = ["Oksana", "Liza", "Masha", "Lesha", "Sergey", "Maksim", "Arina", "Milana"] 
+
+for name in list_1:
+    frame = QFrame(parent= frame_scroll)
+    frame.setStyleSheet("background-color:green; border-radius 10px")
+    frame.setFixedSize(300,200)
+    layout.addWidget(frame)
+    lable = QLabel(text = name, parent = frame)
+    
+
+
+main_scroll.setWidget(frame_scroll)
+
+frame_2 = QFrame(parent= frame_0)
+frame_2.setFixedSize(550,700)
+frame_2.setStyleSheet("background-color: white; border-radius: 10px")
 
 
 
+horizonal_layout.addWidget(main_scroll)
+horizonal_layout.addWidget(frame_2)
+
+
+layout_1 = QVBoxLayout()
+layout_1.setAlignment(Qt.AlignmentFlag.AlignTop)
+frame_2.setLayout(layout_1)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+frame_avatar = QFrame(parent= frame_2)
+frame_avatar.setStyleSheet("background-color: pink")
+frame_avatar.setFixedSize(100,100)
+initials_label = QLabel("VK", parent=frame_avatar)
+initials_label.setStyleSheet("color: purple; font-size: 24px")
+layout_1.addWidget(frame_avatar)
 
 
 
 
-
-
-
-# frame_layout= QVBoxLayout()
-# main_frame.setLayout(frame_layout)
-
-
-
-# frame_4 = QFrame( parent = main_frame)
-# frame_4.setStyleSheet("background-color:red")
-# frame_4.setFixedSize(200,200)
-
-
-
-# frame_2 = QFrame(parent=main_frame) 
-# frame_2.setStyleSheet("background-color:blue")
-# frame_2.setFixedSize(200,200)
-
-
-# frame_3 = QFrame(parent= main_frame)
-# frame_3.setStyleSheet("background-color: red")
-# frame_3.setFixedSize(200,200)
-
-
-# frame_layout.addWidget(frame_2)
-# frame_layout.addWidget(frame_3)
-# frame_layout.addWidget(frame_4)
-
-# # .setSpacing() - метод, что бы задать растоние между фреймами внутри леяута(применяем к леяуту)
-# frame_layout.setSpacing(100)
-# # .setContentsMargins() - метод, что бы задать отсупы от окна слева, 
-# # сверху, справа, снизн(применяем к леяуту)
-# frame_layout.setContentsMargins(100, 50, 100, 50)
-# # .setAlignment(Qt.AlignmentFlag.AlignCenter) - метод для выравнивания элементов(по центру, прибить к верху и тд)
-# # AlignCenter - можно заменить на любой вид выравнивания
-# frame_layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-
-
-
+name_surname = QLabel("Andrii Lovikov")
+name_surname.setStyleSheet("font-size: 16px")
+layout_1.addWidget(name_surname)
